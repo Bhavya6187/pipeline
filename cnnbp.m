@@ -1,5 +1,7 @@
 function net = cnnbp(net,y,x)
 net.e = net.o - y;
+
+
 net.L = 1/2* sum(net.e(:) .^ 2) / size(net.e, 2);
 
 net.od = net.e .* (net.o .* (1 - net.o));   %  output delta
@@ -23,13 +25,17 @@ for i = 1 : numel(net.layers{2}.a)
     net.layers{2}.d{i} = z;
 end
 
+%size(expand(net.layers{2}.d{1}, [2 2 1]) / 4)
+%size(squeeze(net.layers{1}.a{1}))
+
 for j = 1 : numel(net.layers{1}.a)
     net.layers{1}.d{j} = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* (expand(net.layers{2}.d{j}, [2 2 1]) / 4);
 end
 
-
 for j = 1 : numel(net.layers{1}.a)
-    net.layers{1}.dk{j} = convn(flipall(x), net.layers{1}.d{j}, 'valid') / size(net.layers{1}.d{j}, 3);
+    for i = 1 : 3     
+        net.layers{1}.dk{i}{j} = convn(squeeze(flipall(x(:,:,i,:))), net.layers{1}.d{j}, 'valid') / size(net.layers{1}.d{j}, 3);
+    end
     net.layers{1}.db{j} = sum(net.layers{1}.d{j}(:)) / size(net.layers{1}.d{j}, 3);
 end
 
