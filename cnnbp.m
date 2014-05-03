@@ -33,7 +33,7 @@ for j = 1 : numel(net.layers{1}.a)
 end
 
 for j = 1 : numel(net.layers{1}.a)
-    for i = 1 : 3     
+    for i = 1 : 3    
         net.layers{1}.dk{i}{j} = convn(squeeze(flipall(x(:,:,i,:))), net.layers{1}.d{j}, 'valid') / size(net.layers{1}.d{j}, 3);
     end
     net.layers{1}.db{j} = sum(net.layers{1}.d{j}(:)) / size(net.layers{1}.d{j}, 3);

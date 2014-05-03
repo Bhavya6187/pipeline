@@ -13,12 +13,12 @@ opts.alpha = 1;
 opts.batchsize = 50;
 opts.numepochs = 10;
 
-net.param1 = .0001*randn(5,5,3,6);
-net.param2 = .0001*randn(5,5,6,12);
-net.b1=zeros(6);
-net.b2=zeros(12);
+net.param1 = .01*(randn(5,5,3,16)-0.5);
+net.param2 = .01*(randn(5,5,16,16)-0.5);
+net.b1=zeros(16);
+net.b2=zeros(16);
 
-fvnum = 300;
+fvnum = 400;
 onum = 10;
 net.ffW = (rand(onum, fvnum) - 0.5) * 2 * sqrt(6 / (onum + fvnum));
 
@@ -44,9 +44,9 @@ for i = 1 : opts.numepochs
         net = cnnbp(net, batch_y,batch_x);
         net = cnnapplygrads(net, opts);
         net.rL(l) = net.errors;
-        %if(mod(l,100)==0)
-        %    disp(l);
-        %end
+        if(mod(l,100)==0)
+            disp(l);
+        end
     end
     toc;
     sum(net.rL)
