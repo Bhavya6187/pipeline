@@ -10,15 +10,15 @@ for j = 1:16
     net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
 end
 
-
+%size(net.layers{1}.a{1}(:,:,1))
 for j = 1:16
-    z = convn(net.layers{1}.a{j},ones(2)/4,'valid');
-    net.layers{2}.a{j} = z(1 : 2 : end, 1 : 2 : end, :);
+    for k = 1:size(net.layers{1}.a{j},3)
+        [net.layers{2}.a{j}(:,:,k),net.unpooler{1}(:,:,k)]  = max_pooler(net.layers{1}.a{j}(:,:,k),2);
+    end
 end
-
+%size(net.layers{1}.a{j})
 for j = 1:16
-    z = zeros(size(net.layers{2}.a{1}) - [4 4 0]);
-    
+    z = zeros(size(net.layers{2}.a{1}) - [4 4 0]);   
     for i = 1 : 16
         z = z + convn(net.layers{2}.a{i},net.param2(:,:,i,j),'valid');
     end
@@ -26,8 +26,10 @@ for j = 1:16
 end
 
 for j = 1:16
-    z = convn(net.layers{3}.a{j},ones(2)/4,'valid');
-    net.layers{4}.a{j} = z(1 : 2 : end, 1 : 2 : end, :);
+    for k = 1:size(net.layers{3}.a{j},3)
+        [net.layers{4}.a{j}(:,:,k),net.unpooler{2}(:,:,k)]  = max_pooler(net.layers{3}.a{j}(:,:,k),2);
+    end
+    %[net.layers{4}.a{j},net.unpooler{2}]  = max_pooler(net.layers{3}.a{j},2);
 end
 net.fv = [];
 

@@ -13,27 +13,30 @@ for j = 1 : numel(net.layers{4}.a)
 end
 
 for j = 1 : numel(net.layers{3}.a)
-    net.layers{3}.d{j} = net.layers{3}.a{j} .* (1 - net.layers{3}.a{j}) .* (expand(net.layers{4}.d{j}, [2 2 1]) / 4);
+    for k = 1:size(net.layers{3}.a{j},3)
+        [net.layers{3}.d{j}(:,:,k)]  = net.layers{3}.a{j}(:,:,k) .* (1 - net.layers{3}.a{j}(:,:,k)) .* max_unpooler(net.layers{4}.d{j}(:,:,k),net.unpooler{2}(:,:,k),2);
+    end
+    %net.layers{3}.d{j} = net.layers{3}.a{j} .* (1 - net.layers{3}.a{j}) .* (expand(net.layers{4}.d{j}, [2 2 1]) / 4);
 end
 
 for i = 1 : numel(net.layers{2}.a)
     z = zeros(size(net.layers{2}.a{1}));
-    
     for j = 1 : numel(net.layers{3}.a)
         z = z + convn(net.layers{3}.d{j}, rot180(net.param2(:,:,i,j)), 'full');
     end
     net.layers{2}.d{i} = z;
 end
 
-%size(expand(net.layers{2}.d{1}, [2 2 1]) / 4)
-%size(squeeze(net.layers{1}.a{1}))
-
 for j = 1 : numel(net.layers{1}.a)
-    net.layers{1}.d{j} = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* (expand(net.layers{2}.d{j}, [2 2 1]) / 4);
+    for k = 1:size(net.layers{1}.a{j},3)
+        [net.layers{1}.d{j}(:,:,k)]  = net.layers{1}.a{j}(:,:,k) .* (1 - net.layers{1}.a{j}(:,:,k)) .* max_unpooler(net.layers{2}.d{j}(:,:,k),net.unpooler{1}(:,:,k),2);
+    end
+    
+    %    net.layers{1}.d{j} = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* (expand(net.layers{2}.d{j}, [2 2 1]) / 4);
 end
 
 for j = 1 : numel(net.layers{1}.a)
-    for i = 1 : 3    
+    for i = 1 : 3
         net.layers{1}.dk{i}{j} = convn(squeeze(flipall(x(:,:,i,:))), net.layers{1}.d{j}, 'valid') / size(net.layers{1}.d{j}, 3);
     end
     net.layers{1}.db{j} = sum(net.layers{1}.d{j}(:)) / size(net.layers{1}.d{j}, 3);

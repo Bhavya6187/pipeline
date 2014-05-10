@@ -20,7 +20,7 @@ net.b2=zeros(16);
 
 fvnum = 400;
 onum = 10;
-net.ffW = (rand(onum, fvnum) - 0.5) * 2 * sqrt(6 / (onum + fvnum));
+net.ffW = (rand(onum, fvnum) - 0.5) * 0;
 
 net.ffb = zeros(onum, 1);
 
@@ -34,6 +34,7 @@ epoch_error= ones(1,opts.numepochs);
 for i = 1 : opts.numepochs
     disp(['epoch ' num2str(i) '/' num2str(opts.numepochs)]);
     tic;
+    net.rL = zeros(1,numbatches );
     kk = randperm(m);
     for l = 1 : numbatches
         
