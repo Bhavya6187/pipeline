@@ -12,9 +12,10 @@ end
 
 %size(net.layers{1}.a{1}(:,:,1))
 for j = 1:16
-    for k = 1:size(net.layers{1}.a{j},3)
-        [net.layers{2}.a{j}(:,:,k),net.unpooler{1}(:,:,k)]  = max_pooler(net.layers{1}.a{j}(:,:,k),2);
-    end
+%    for k = 1:size(net.layers{1}.a{j},3)
+%        [net.layers{2}.a{j}(:,:,k),net.unpooler{1}(:,:,k)]  = max_pooler(net.layers{1}.a{j}(:,:,k),2);
+%    end
+    [net.layers{2}.a{j},net.unpooler{1}]  = max_pooler(net.layers{1}.a{j},2);
 end
 %size(net.layers{1}.a{j})
 for j = 1:16
@@ -26,10 +27,11 @@ for j = 1:16
 end
 
 for j = 1:16
-    for k = 1:size(net.layers{3}.a{j},3)
-        [net.layers{4}.a{j}(:,:,k),net.unpooler{2}(:,:,k)]  = max_pooler(net.layers{3}.a{j}(:,:,k),2);
-    end
+%    for k = 1:size(net.layers{3}.a{j},3)
+%        [net.layers{4}.a{j}(:,:,k),net.unpooler{2}(:,:,k)]  = max_pooler(net.layers{3}.a{j}(:,:,k),2);
+%    end
     %[net.layers{4}.a{j},net.unpooler{2}]  = max_pooler(net.layers{3}.a{j},2);
+    [net.layers{4}.a{j},net.unpooler{2}]  = max_pooler(net.layers{3}.a{j},2);
 end
 net.fv = [];
 
