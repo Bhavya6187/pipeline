@@ -16,7 +16,7 @@ for j = 1 : numel(net.layers{3}.a)
     %for k = 1:size(net.layers{3}.a{j},3)
     %    [net.layers{3}.d{j}(:,:,k)]  = net.layers{3}.a{j}(:,:,k) .* (1 - net.layers{3}.a{j}(:,:,k)) .* max_unpooler(net.layers{4}.d{j}(:,:,k),net.unpooler{2}(:,:,k),2);
     %end
-    [net.layers{3}.d{j}]  = net.layers{3}.a{j} .* (1 - net.layers{3}.a{j}) .* max_unpooler(net.layers{4}.d{j},net.unpooler{2},2);
+    [net.layers{3}.d{j}]  = net.layers{3}.a{j} .* (1 - net.layers{3}.a{j}) .* max_3d_unpooler(net.layers{4}.d{j},net.unpooler{2},2);
     %net.layers{3}.d{j} = net.layers{3}.a{j} .* (1 - net.layers{3}.a{j}) .* (expand(net.layers{4}.d{j}, [2 2 1]) / 4);
 end
 
@@ -32,7 +32,7 @@ for j = 1 : numel(net.layers{1}.a)
 %    for k = 1:size(net.layers{1}.a{j},3)
 %        [net.layers{1}.d{j}(:,:,k)]  = net.layers{1}.a{j}(:,:,k) .* (1 - net.layers{1}.a{j}(:,:,k)) .* max_unpooler(net.layers{2}.d{j}(:,:,k),net.unpooler{1}(:,:,k),2);
 %    end
-    [net.layers{1}.d{j}]  = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* max_unpooler(net.layers{2}.d{j},net.unpooler{1},2);
+    [net.layers{1}.d{j}]  = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* max_3d_unpooler(net.layers{2}.d{j},net.unpooler{1},2);
     %    net.layers{1}.d{j} = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* (expand(net.layers{2}.d{j}, [2 2 1]) / 4);
 end
 
