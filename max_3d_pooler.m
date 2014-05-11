@@ -1,5 +1,5 @@
 function [a,b] = max_3d_pooler(A,pool)
-size(A)
+
 a= zeros(size(A,1)/pool,size(A,2)/pool,size(A,3));
 b= zeros(size(A,1)/pool,size(A,2)/pool,size(A,3));
 for i = 1:size(A,1)/pool
