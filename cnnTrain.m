@@ -1,5 +1,5 @@
 clear;
-load 'data\input.mat';
+load 'data/input.mat';
 
 %{
 train_x = double(reshape(train_x',28,28,60000))/255;
@@ -9,6 +9,7 @@ test_y = double(test_y');
 %}
 train_y = train_y';
 test_y = test_y';
+<<<<<<< HEAD
 opts.alpha = .01;
 opts.batchsize = 50;
 opts.numepochs = 10;
@@ -19,6 +20,16 @@ net.param3 = .01*(randn(5,5,32,64)-0.5);
 net.b1=zeros(32);
 net.b2=zeros(32);
 net.b3=zeros(64);
+=======
+
+opts.alpha = 1;
+opts.batchsize = 50;
+opts.numepochs = 100;
+net.param1 = .01*(randn(5,5,3,16)-0.5);
+net.param2 = .01*(randn(5,5,16,16)-0.5);
+net.b1=zeros(16);
+net.b2=zeros(16);
+>>>>>>> 0fbd50451fc850ccbb3c64697a5a5145544e5fae
 
 net.change1 = .01*(zeros(5,5,3,32)-0.5);
 net.change2 = .01*(zeros(5,5,32,32)-0.5);
@@ -60,9 +71,9 @@ for i = 1 : opts.numepochs
         net = cnnbp(net, batch_y,batch_x);
         net = cnnapplygrads(net, opts);
         net.rL(l) = net.errors;
-        if(mod(l,100)==0)
-            disp(l);
-        end
+        %if(mod(l,100)==0)
+        %    disp(l);
+        %end
     end
     toc;
     sum(net.rL)
