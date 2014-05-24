@@ -9,20 +9,35 @@ test_y = double(test_y');
 %}
 train_y = train_y';
 test_y = test_y';
-opts.alpha = 1;
+opts.alpha = .01;
 opts.batchsize = 50;
 opts.numepochs = 10;
 
-net.param1 = .01*(randn(5,5,3,16)-0.5);
-net.param2 = .01*(randn(5,5,16,16)-0.5);
-net.b1=zeros(16);
-net.b2=zeros(16);
+net.param1 = .01*(randn(5,5,3,32)-0.5);
+net.param2 = .01*(randn(5,5,32,32)-0.5);
+net.param3 = .01*(randn(5,5,32,64)-0.5);
+net.b1=zeros(32);
+net.b2=zeros(32);
+net.b3=zeros(64);
 
-fvnum = 400;
+net.change1 = .01*(zeros(5,5,3,32)-0.5);
+net.change2 = .01*(zeros(5,5,32,32)-0.5);
+net.change3 = .01*(zeros(5,5,32,64)-0.5);
+
+net.mom = 0.9;
+opts.L2conv = .004;
+opts.L2fc = .03;
+fvnum = 1024;
+onum = 64;
+net.ffW1 = (rand(onum, fvnum) - 0.5) * 0.01;
+net.change4 = (zeros(onum, fvnum) - 0.5) * 0.01;
+net.ffb1 = zeros(onum, 1);
+
+fvnum = 64;
 onum = 10;
-net.ffW = (rand(onum, fvnum) - 0.5) * 0;
-
-net.ffb = zeros(onum, 1);
+net.ffW2 = (rand(onum, fvnum) - 0.5) * 0.01;
+net.change5 = (zeros(onum, fvnum) - 0.5) * 0.01;
+net.ffb2 = zeros(onum, 1);
 
 m = size(train_x, 4);
 numbatches = m / opts.batchsize;
