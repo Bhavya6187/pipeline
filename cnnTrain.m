@@ -11,7 +11,7 @@ train_y = train_y';
 test_y = test_y';
 opts.alpha = .01;
 opts.batchsize = 50;
-opts.numepochs = 10;
+opts.numepochs = 100;
 
 net.param1 = .01*(randn(5,5,3,32)-0.5);
 net.param2 = .01*(randn(5,5,32,32)-0.5);
