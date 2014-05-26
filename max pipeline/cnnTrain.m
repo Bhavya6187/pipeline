@@ -1,5 +1,5 @@
 clear;
-load 'data\input.mat';
+load '../data/input.mat';
 
 %{
 train_x = double(reshape(train_x',28,28,60000))/255;
@@ -11,7 +11,7 @@ train_y = train_y';
 test_y = test_y';
 opts.alpha = 1;
 opts.batchsize = 50;
-opts.numepochs = 10;
+opts.numepochs = 200;
 
 net.param1 = .01*(randn(5,5,3,16)-0.5);
 net.param2 = .01*(randn(5,5,16,16)-0.5);
@@ -20,7 +20,7 @@ net.b2=zeros(16);
 
 fvnum = 400;
 onum = 10;
-net.ffW = (rand(onum, fvnum) - 0.5) * 0;
+net.ffW = (rand(onum, fvnum) - 0.5) * 0.1;
 
 net.ffb = zeros(onum, 1);
 
