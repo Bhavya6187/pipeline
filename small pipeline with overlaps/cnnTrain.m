@@ -1,12 +1,6 @@
 clear;
 load '../data/input.mat';
 
-%{
-train_x = double(reshape(train_x',28,28,60000))/255;
-test_x = double(reshape(test_x',28,28,10000))/255;
-train_y = double(train_y');
-test_y = double(test_y');
-%}
 train_y = train_y';
 test_y = test_y';
 opts.alpha = .01;
@@ -15,10 +9,16 @@ opts.numepochs = 100;
 
 net.mom = 0.9;
 opts.L2fc = .03;
-fvnum = 1024*3;
+opts.L2conv = .004;
+
+net.param1 = .01*(randn(5,5,3,32)-0.5);
+net.change1 = .01*(zeros(5,5,3,32)-0.5);
+net.b1=zeros(32);
+
+fvnum = 1024*32;
 onum = 10;
 net.ffW = (rand(onum, fvnum) - 0.5) * 0.01;
-net.change = (zeros(onum, fvnum) - 0.5) * 0.01;
+net.change2 = (zeros(onum, fvnum) - 0.5) * 0.01;
 net.ffb = zeros(onum, 1);
 
 m = size(train_x, 4);
