@@ -58,9 +58,6 @@ for j = 1 : numel(net.layers{6}.a)
 end
 
 %size(net.fv)
-size(repmat(net.ffb1, 1, size(net.fv, 2)))
-size(net.ffW1 )
-size(net.fv )
 net.fc1 = sigm(net.ffW1 * net.fv + repmat(net.ffb1, 1, size(net.fv, 2)));
 
 net.o = sigm(net.ffW2 * net.fc1 + repmat(net.ffb2, 1, size(net.fc1, 2)));
