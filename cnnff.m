@@ -4,6 +4,7 @@ x = padarray(x,[2 2],'both');
 
 %% check for neuron types
 
+
 for j = 1:32
     z = zeros(32,32,1,size(x,4));
     for i = 1 : 3
@@ -28,10 +29,12 @@ for j = 1:32
     net.layers{3}.a{j} = sigm(z + net.b2(j));
 end
 
+
 for j = 1:32
     [net.layers{4}.a{j}]  = avg_3d_pooler(net.layers{3}.a{j},2,3);
     temp{j} = padarray(net.layers{4}.a{j},[2 2],'both');
 end
+
 
 for j = 1:64
     z = zeros(size(temp{1}) - [4 4 0]);
@@ -40,6 +43,7 @@ for j = 1:64
     end
     net.layers{5}.a{j} = sigm(z + net.b3(j));
 end
+
 
 for j = 1:64
     [net.layers{6}.a{j}]  = avg_3d_pooler(net.layers{5}.a{j},2,3);
@@ -54,7 +58,9 @@ for j = 1 : numel(net.layers{6}.a)
 end
 
 %size(net.fv)
-
+size(repmat(net.ffb1, 1, size(net.fv, 2)))
+size(net.ffW1 )
+size(net.fv )
 net.fc1 = sigm(net.ffW1 * net.fv + repmat(net.ffb1, 1, size(net.fv, 2)));
 
 net.o = sigm(net.ffW2 * net.fc1 + repmat(net.ffb2, 1, size(net.fc1, 2)));

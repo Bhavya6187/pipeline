@@ -66,7 +66,7 @@ for j = 1 : numel(net.layers{5}.a)
     net.layers{5}.db{j} = sum(net.layers{5}.d{j}(:)) / size(net.layers{5}.d{j}, 3);
 end
 
-net.dffW1 = net.fvd2 * (net.fv)' / size(net.fv, 2);
+net.dffW1 = net.fvd * (net.fv)' / size(net.fv, 2);
 net.dffb1 = mean(net.fvd2, 2);
 
 net.dffW2 = net.od * (net.fc1)' / size(net.od, 2);

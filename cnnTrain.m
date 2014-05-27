@@ -53,13 +53,13 @@ for i = 1 : opts.numepochs
     net.rL = zeros(1,numbatches );
     kk = randperm(m);
     for l = 1 : numbatches
-        
         batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         batch_y = train_y(:,    kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
-        
         net = cnnff(net, batch_x,batch_y);
         net = cnnbp(net, batch_y,batch_x);
+        
         net = cnnapplygrads(net, opts);
+        
         net.rL(l) = net.errors;
     end
     toc;

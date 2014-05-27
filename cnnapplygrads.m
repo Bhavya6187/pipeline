@@ -29,9 +29,6 @@ net.change4 = (net.change4*net.mom)-(opts.L2fc*net.ffW1*opts.alpha)+(opts.alpha*
 net.ffW1 = net.ffW1 + net.change4;
 net.ffb1 = net.ffb1 - 2*opts.alpha * net.dffb1;
 
-%size(net.ffW2)
-%size(net.dffW2)
-
 net.change5 = (net.change5*net.mom)-(opts.L2fc*net.ffW2*opts.alpha)+(opts.alpha*net.dffW2);
 net.ffW2 = net.ffW2 + net.change5;
 net.ffb2 = net.ffb2 + 2*opts.alpha * net.dffb2;
