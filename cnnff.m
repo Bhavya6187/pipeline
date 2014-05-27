@@ -14,8 +14,6 @@ for j = 1:32
     net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
 end
 
-%size(net.layers{1}.a{j})
-
 for j = 1:32
     [net.layers{2}.a{j},net.unpooler{1}]  = max_3d_pooler(net.layers{1}.a{j},2,3);
     temp{j} = padarray(net.layers{2}.a{j},[2 2],'both');

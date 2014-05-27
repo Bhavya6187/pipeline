@@ -15,7 +15,7 @@ net.param1 = .01*(randn(5,5,3,32)-0.5);
 net.change1 = .01*(zeros(5,5,3,32)-0.5);
 net.b1=zeros(32);
 
-fvnum = 1024*32;
+fvnum = 256*32;
 onum = 10;
 net.ffW = (rand(onum, fvnum) - 0.5) * 0.01;
 net.change2 = (zeros(onum, fvnum) - 0.5) * 0.01;

@@ -11,12 +11,15 @@ for j = 1:32
     net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
 end
 
+for j = 1:32
+    [net.layers{2}.a{j},net.unpooler{1}]  = max_3d_pooler(net.layers{1}.a{j},2,3);
+end
 
 net.fv = [];
 
-for j = 1 : numel(net.layers{1}.a)
-    sa = size(net.layers{1}.a{j});
-    net.fv = [net.fv; reshape(net.layers{1}.a{j}, sa(1) * sa(2), sa(3))];
+for j = 1 : numel(net.layers{2}.a)
+    sa = size(net.layers{2}.a{j});
+    net.fv = [net.fv; reshape(net.layers{2}.a{j}, sa(1) * sa(2), sa(3))];
 end
 
 net.o = sigm(net.ffW * net.fv + repmat(net.ffb, 1, size(net.fv, 2)));
