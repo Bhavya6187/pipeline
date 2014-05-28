@@ -12,13 +12,13 @@ opts.L2fc = .03;
 opts.L2conv = .004;
 
 net.param1 = .01*(randn(5,5,3,32)-0.5);
-net.change1 = .01*(zeros(5,5,3,32)-0.5);
+net.change1 = zeros(5,5,3,32);
 net.b1=zeros(32);
 
 fvnum = 256*32;
 onum = 10;
-net.ffW = (rand(onum, fvnum) - 0.5) * 0.01;
-net.change2 = (zeros(onum, fvnum) - 0.5) * 0.01;
+net.ffW = (rand(onum, fvnum) - 0.5) * 0.0001;
+net.change2 = zeros(onum, fvnum);
 net.ffb = zeros(onum, 1);
 
 m = size(train_x, 4);
