@@ -14,7 +14,7 @@ for j = 1 : numel(net.layers{2}.a)
 end
 
 for j = 1 : numel(net.layers{1}.a)
-    [net.layers{1}.d{j}]  = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* max_3d_unpooler(net.layers{2}.d{j},net.unpooler{1},2,3);
+    [net.layers{1}.d{j}]  = net.layers{1}.a{j} .* (1 - net.layers{1}.a{j}) .* max_3d_unpooler(net.layers{2}.d{j},net.unpooler{1},2,2);
 end
 
 for j = 1 : numel(net.layers{1}.a)

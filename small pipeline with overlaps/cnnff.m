@@ -12,7 +12,7 @@ for j = 1:32
 end
 
 for j = 1:32
-    [net.layers{2}.a{j},net.unpooler{1}]  = max_3d_pooler(net.layers{1}.a{j},2,3);
+    [net.layers{2}.a{j},net.unpooler{1}]  = max_3d_pooler(net.layers{1}.a{j},2,2);
 end
 
 net.fv = [];
