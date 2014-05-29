@@ -1,9 +1,10 @@
 function net = cnnff(net,x,y)
 
-x = padarray(x,[2 2],'both');
+%x = padarray(x,[2 2],'both');
 
 for j = 1:32
-    z = zeros(32,32,1,size(x,4));
+    %z = zeros(32,32,1,size(x,4));
+    z = zeros(28,28,1,size(x,4));
     for i = 1 : 3
         z = z + convn(x(:,:,i,:),net.param1(:,:,i,j),'valid');
     end
