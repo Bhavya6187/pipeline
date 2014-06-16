@@ -8,7 +8,7 @@ net.fvd = (net.ffW' * net.od);              %  feature vector delta
 
 sa = size(net.layers{1}.a{1});
 fvnum = sa(1) * sa(2);
-
+    
 for j = 1 : numel(net.layers{1}.a)
     net.layers{1}.d{j} = reshape(net.fvd(((j - 1) * fvnum + 1) : j * fvnum, :), sa(1), sa(2), sa(3));
 end
