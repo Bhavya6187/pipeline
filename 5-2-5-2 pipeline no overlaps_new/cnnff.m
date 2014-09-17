@@ -1,7 +1,7 @@
 function net = cnnff(net,x)
 
 for j = 1:16
-    z = zeros(28,28,size(x,3));
+    z = zeros(28,28,size(x,4));
     for i = 1 : 3
         z = convn(x(:,:,i,:),net.param1{i}{j},'valid');
     end
@@ -17,13 +17,13 @@ for j = 1:16
 end
 
 for j = 1:16
-    z = zeros(10,10,size(x,3));
-    for i = 1 : 3
+    z = zeros(10,10,size(x,4));
+    for i = 1 : 16
         z = z + convn(net.layers{2}.a{i},net.param2{i}{j},'valid');
     end
     net.layers{3}.a{j} = sigm(z + net.b2{j});
 end
-
+size(net.layers{3}.a{1})
 for j = 1:16
     z = convn(net.layers{3}.a{j}, ones(2) / (4), 'valid');   %  !! replace with variable
     net.layers{4}.a{j} = z(1 : 2 : end, 1 : 2 : end, :);

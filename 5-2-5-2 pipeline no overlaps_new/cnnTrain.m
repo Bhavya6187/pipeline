@@ -23,7 +23,7 @@ for j = 1 : 16 %  output map
     net.b2{j} = 0;
 end
 
-fvnum = 16*16;
+fvnum = 25*16;
 onum = 10;
 net.ffW = (rand(onum, fvnum) - 0.5) * 0.001;
 net.ffb = zeros(onum, 1);
@@ -38,7 +38,7 @@ for i = 1 : opts.numepochs
     net.rL = [];
     kk = randperm(m);
     for l = 1 : numbatches
-        batch_x = train_x(:, :, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
+        batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         batch_y = train_y(:,    kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         net = cnnff(net, batch_x);
         net = cnnbp(net, batch_y,batch_x);

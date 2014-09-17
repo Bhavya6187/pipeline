@@ -20,7 +20,7 @@ end
 
 for j = 1:16
     z = zeros(10,10,size(x,4));
-    for i = 1 : 3
+    for i = 1 : 16
         z = z + convn(net.layers{2}.a{i},net.param2(:,:,i,j),'valid');
     end
     net.layers{3}.a{j} = sigm(z + net.b2(j));
