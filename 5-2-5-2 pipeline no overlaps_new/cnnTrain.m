@@ -41,7 +41,7 @@ for i = 1 : opts.numepochs
     for l = 1 : numbatches
         batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         batch_y = train_y(:,    kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
-        net = cnnff(net, batch_x);
+        net = cnnff(net, batch_x,batch_y);
         net = cnnbp(net, batch_y,batch_x);
         net = cnnapplygrads(net, opts);
         if isempty(net.rL)

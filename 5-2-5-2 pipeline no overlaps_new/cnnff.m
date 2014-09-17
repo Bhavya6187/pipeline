@@ -1,4 +1,4 @@
-function net = cnnff(net,x)
+function net = cnnff(net,x,y)
 
 for j = 1:16
     z = zeros(28,28,size(x,4));
