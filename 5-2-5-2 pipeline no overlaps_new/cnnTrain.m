@@ -28,7 +28,7 @@ onum = 10;
 net.ffW = (rand(onum, fvnum) - 0.5) * 0.001;
 net.ffb = zeros(onum, 1);
 
-m = size(train_x, 3);
+m = size(train_x, 4);
 numbatches = m / opts.batchsize;
 net.fv = [];
 
@@ -46,19 +46,18 @@ for i = 1 : opts.numepochs
         if isempty(net.rL)
             net.rL(1) = net.L;
         end
-        if mod(l,100) == 0
-            net.L
-        end
+        
         if isempty(net.rL)
             net.rL(1) = net.L;
         end
         %net.rL(end+1) = net.L;
         net.rL(end + 1) = 0.99 * net.rL(end) + 0.01 * net.L;
     end
+    disp(net.L)
     toc;
 end
 
-figure; plot(net.rL);
+%figure; plot(net.rL);
 %figure; plot(epoch_error);
 
 net = cnnff(net, test_x);
