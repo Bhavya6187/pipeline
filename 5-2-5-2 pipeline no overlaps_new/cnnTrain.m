@@ -36,6 +36,7 @@ for i = 1 : opts.numepochs
     disp(['epoch ' num2str(i) '/' num2str(opts.numepochs)]);
     tic;
     net.rL = [];
+    error = [];
     kk = randperm(m);
     for l = 1 : numbatches
         batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
@@ -52,8 +53,10 @@ for i = 1 : opts.numepochs
         end
         %net.rL(end+1) = net.L;
         net.rL(end + 1) = 0.99 * net.rL(end) + 0.01 * net.L;
+        error(l) = net.errors;
     end
     disp(net.L)
+    sum(error)
     toc;
 end
 
