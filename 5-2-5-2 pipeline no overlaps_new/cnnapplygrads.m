@@ -1,7 +1,7 @@
 function net = cnnapplygrads(net, opts)
 
 for j = 1 : 16
-    for i = 1 : 1   
+    for i = 1 : 3   
         net.param1{i}{j} = net.param1{i}{j} - opts.alpha*net.layers{1}.dk{i}{j};
     end
     net.b1{j} = net.b1{j} - opts.alpha * net.layers{1}.db{j};

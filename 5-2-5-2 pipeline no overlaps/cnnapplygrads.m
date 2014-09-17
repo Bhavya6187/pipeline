@@ -8,7 +8,7 @@ for j = 1 : 16
 end
 
 for j = 1 : 16
-    for ii = 1 : 3     
+    for ii = 1 : 16
         net.param2(:,:,ii,j) = net.param2(:,:,ii,j) + opts.alpha*net.layers{3}.dk{ii}{j};
     end
     net.b2(j) = net.b2(j) + opts.alpha * net.layers{3}.db{j};
