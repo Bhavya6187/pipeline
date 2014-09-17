@@ -23,7 +23,6 @@ for j = 1:16
     end
     net.layers{3}.a{j} = sigm(z + net.b2{j});
 end
-size(net.layers{3}.a{1})
 for j = 1:16
     z = convn(net.layers{3}.a{j}, ones(2) / (4), 'valid');   %  !! replace with variable
     net.layers{4}.a{j} = z(1 : 2 : end, 1 : 2 : end, :);
