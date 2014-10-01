@@ -36,7 +36,7 @@ net = cnnff(net, train_x,train_y);
 net.errors = 0;
 result = tiedrank(net.o);
 for i = 1:size(y,2)
-    A = y(:,i);
+    A = train_y(:,i);
     index = find(A==max(A));
     B = result(:,i);
     if (B(index) < 6)
