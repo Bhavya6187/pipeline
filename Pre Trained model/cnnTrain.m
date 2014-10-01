@@ -33,14 +33,19 @@ net.ffb = csvread('fc10_biases.csv')';
 net = cnnff(net, train_x,train_y);
 
 %result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
-net.errors = 0;
+error5 = 0;
+error3 = 0;
 result = tiedrank(net.o);
 for i = 1:size(train_y,2)
     A = train_y(:,i);
     index = find(A==max(A));
     B = result(:,i);
     if (B(index) < 6)
-        net.errors = net.errors+1;
+        error5 = error5+1;
+    end
+    if (B(index) < 8)
+        error3 = error3+1;
     end
 end
-net.errors
+error5
+error3
