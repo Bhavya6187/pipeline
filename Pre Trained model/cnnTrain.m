@@ -4,8 +4,8 @@ load '../data/input.mat';
 
 train_y = train_y';
 test_y = test_y';
-train_x = train_x/255;
-test_x = test_x/255;
+train_x = train_x;
+test_x = test_x;
 
 M = csvread('conv1.csv');
 Mb = csvread('conv1_biases.csv');
@@ -31,4 +31,4 @@ net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
 size(test_x)
 size(test_y)
-net = cnnff(net, test_x(:,:,:,1:100),test_y(:,1:100));
+net = cnnff(net, train_x,train_y);
