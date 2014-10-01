@@ -29,6 +29,18 @@ end
 
 net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
-size(test_x)
-size(test_y)
+
 net = cnnff(net, train_x,train_y);
+
+%result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
+net.errors = 0;
+result = tiedrank(net.o);
+for i = 1:size(y,2)
+    A = y(:,i);
+    index = find(A==max(A));
+    B = result(:,i);
+    if (B(index) < 6)
+        net.errors = net.errors+1;
+    end
+end
+net.errors
