@@ -32,7 +32,7 @@ end
 net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
 
-net = cnnff(net, test_x);
+net = cnnff(net, test_x,test_y);
 
 result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
 errors = 0;

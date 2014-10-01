@@ -40,9 +40,6 @@ for j = 1 : numel(net.layers{4}.a)
 end
 net.o = sigm(net.ffW * net.fv + repmat(net.ffb, 1, size(net.fv, 2)));
 
-size(repmat(net.ffb, 1, size(net.fv, 2)))
-size(net.ffW * net.fv )
-
 result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
 net.errors = 0;
 
