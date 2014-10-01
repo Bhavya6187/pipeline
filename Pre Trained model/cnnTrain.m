@@ -35,7 +35,7 @@ net = cnnff(net, train_x,train_y);
 %result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
 net.errors = 0;
 result = tiedrank(net.o);
-for i = 1:size(y,2)
+for i = 1:size(train_y,2)
     A = train_y(:,i);
     index = find(A==max(A));
     B = result(:,i);
