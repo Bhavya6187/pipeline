@@ -35,6 +35,7 @@ net = cnnff(net, train_x,train_y);
 %result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
 error5 = 0;
 error3 = 0;
+error = 0;
 result = tiedrank(net.o);
 for i = 1:size(train_y,2)
     A = train_y(:,i);
@@ -46,6 +47,10 @@ for i = 1:size(train_y,2)
     if (B(index) < 8)
         error3 = error3+1;
     end
+    if (B(index) < 10)
+        error = error+1;
+    end
 end
 error5
 error3
+error
