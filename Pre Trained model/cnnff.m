@@ -29,13 +29,33 @@ end
 size(net.layers{2}.a{j})
 
 for j = 1:32
+    for i = 1:size(x,4)
+        for l = 1:10
+            for m = 1:10
+                for k = 1:32
+                    z = 0;
+                    for n = 1:5
+                        for o = 1:5
+                            z = z + net.param2{k}{j}(n,o)*net.layers{2}.a{k}(l+n-1,m+o-1,i);
+                        end
+                    end
+                    net.layers{1}.a{j}(l,m,i) = sigm(z + net.b2{j});
+                end
+            end
+        end
+    end
+end
+
+
+%{
+for j = 1:32
     z = zeros(10,10,size(x,4));
     for i = 1 : 32
         z = z + convn(net.layers{2}.a{i},net.param2{i}{j},'valid');
     end
     net.layers{3}.a{j} = sigm(z + net.b2{j});
 end
-
+%}
 net.fv = [];
 
 for j = 1:32
