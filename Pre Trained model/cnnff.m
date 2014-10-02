@@ -1,6 +1,8 @@
 function net = cnnff(net,x,y)
 
 %x = padarray(x,[2 2],'both');
+
+%{
 for j = 1:32
     for i = 1:size(x,4)
         for l = 1:28
@@ -18,6 +20,18 @@ for j = 1:32
         end
     end
 end
+%}
+
+for j = 1:32
+    z = zeros(28,28,1,size(x,4));
+    for i = 1 : 3
+        temp = rot90(net.param1{i}{j},2);
+        %temp = net.param1{i}{j};
+        z = z + convn(x(:,:,i,:),temp,'valid');
+    end
+    net.layers{1}.a{j} = sigm(z + net.b1{j});
+    net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
+end
 
 net.fv = [];
 size(net.layers{1}.a{j})
@@ -27,7 +41,7 @@ for j = 1:32
 end
 
 size(net.layers{2}.a{j})
-
+%{
 for j = 1:32
     for i = 1:size(x,4)
         for l = 1:10
@@ -45,17 +59,18 @@ for j = 1:32
         end
     end
 end
+%}
 
-
-%{
 for j = 1:32
     z = zeros(10,10,size(x,4));
     for i = 1 : 32
-        z = z + convn(net.layers{2}.a{i},net.param2{i}{j},'valid');
+        temp = rot90(net.param2{i}{j},2);
+        %temp = net.param2{i}{j};
+        z = z + convn(net.layers{2}.a{i},temp,'valid');
     end
     net.layers{3}.a{j} = sigm(z + net.b2{j});
 end
-%}
+
 net.fv = [];
 
 for j = 1:32
