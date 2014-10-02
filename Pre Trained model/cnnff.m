@@ -1,7 +1,7 @@
 function net = cnnff(net,x,y)
 
 %x = padarray(x,[2 2],'both');
-for i = 1:50
+for i = 1:size(x,4)
     for j = 1:32
         for l = 1:28
             for m = 1:28
@@ -20,7 +20,7 @@ for i = 1:50
 end
 
 net.fv = [];
-
+size(net.layers{1}.a{j})
 for j = 1:32
     z = convn(net.layers{1}.a{j}, ones(2) / (4), 'valid');   %  !! replace with variable
     net.layers{2}.a{j} = z(1 : 2 : end, 1 : 2 : end, :);
