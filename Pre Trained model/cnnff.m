@@ -1,14 +1,15 @@
 function net = cnnff(net,x,y)
 
 %x = padarray(x,[2 2],'both');
-
+batch = 50;
 for j = 1:32
-    z = zeros(28,28,1,size(x,4));
-    for i = 1 : 3
-        z = z + convn(x(:,:,i,:),net.param1{i}{j},'valid');
+    z = zeros(28,28,size(x,4));
+    for k = 1:batch
+        z(:,:,k) = conv2(x(:,:,1,k),net.param1{1}{j},'valid')+conv2(x(:,:,2,k),net.param1{2}{j},'valid')+conv2(x(:,:,3,k),net.param1{3}{j},'valid');
     end
+    
     net.layers{1}.a{j} = sigm(z + net.b1{j});
-    net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
+    net.layers{1}.a{j} = net.layers{1}.a{j};
 end
 
 net.fv = [];
