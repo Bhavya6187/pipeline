@@ -39,7 +39,7 @@ for j = 1:32
                             z = z + net.param2{k}{j}(n,o)*net.layers{2}.a{k}(l+n-1,m+o-1,i);
                         end
                     end
-                    net.layers{1}.a{j}(l,m,i) = sigm(z + net.b2{j});
+                    net.layers{3}.a{j}(l,m,i) = sigm(z + net.b2{j});
                 end
             end
         end
