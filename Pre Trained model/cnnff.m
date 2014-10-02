@@ -1,8 +1,8 @@
 function net = cnnff(net,x,y)
 
 %x = padarray(x,[2 2],'both');
-for i = 1:size(x,4)
-    for j = 1:32
+for j = 1:32
+    for i = 1:size(x,4)
         for l = 1:28
             for m = 1:28
                 for k = 1:3
@@ -12,7 +12,7 @@ for i = 1:size(x,4)
                             z = z + net.param1{k}{j}(n,o)*x(l+n-1,m+o-1,k,i);
                         end
                     end
-                    net.layers{1}.a{j}(l,m,j,i) = sigm(z + net.b1{j});
+                    net.layers{1}.a{j}(l,m,i) = sigm(z + net.b1{j});
                 end
             end
         end
@@ -25,6 +25,8 @@ for j = 1:32
     z = convn(net.layers{1}.a{j}, ones(2) / (4), 'valid');   %  !! replace with variable
     net.layers{2}.a{j} = z(1 : 2 : end, 1 : 2 : end, :);
 end
+
+size(net.layers{2}.a{j})
 
 for j = 1:32
     z = zeros(10,10,size(x,4));
