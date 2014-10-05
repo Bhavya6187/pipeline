@@ -29,7 +29,7 @@ for j = 1:32
         temp = rot90(net.param1{i}{j},2);
         channel = squeeze(x(:,:,i,:));
         means = mean(mean(channel,1));
-        for k = 1:size(channels(3))
+        for k = 1:size(channel(3))
             channel(:,:,k) = channel(:,:,k) - means(k);
         end
         z = z + convn(channel,temp,'valid');
