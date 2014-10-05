@@ -28,7 +28,7 @@ for j = 1:32
     for i = 1 : 3
         temp = rot90(net.param1{i}{j},2);
         channel = squeeze(x(:,:,i,:));
-        means = mean(mean(C,1));
+        means = mean(mean(channel,1));
         for k = 1:size(channels(3))
             channel(:,:,k) = channel(:,:,k) - means(k);
         end
