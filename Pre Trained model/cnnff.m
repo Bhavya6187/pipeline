@@ -24,7 +24,7 @@ end
 %}
 
 for j = 1:32
-    z = zeros(28,28,1,size(x,4));
+    z = zeros(28,28,size(x,4));
     for i = 1 : 3
         temp = rot90(net.param1{i}{j},2);
         channel = squeeze(x(:,:,i,:));
