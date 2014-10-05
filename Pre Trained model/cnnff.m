@@ -1,5 +1,6 @@
 function net = cnnff(net,x,y)
 
+
 %x = padarray(x,[2 2],'both');
 
 %{
@@ -26,11 +27,15 @@ for j = 1:32
     z = zeros(28,28,1,size(x,4));
     for i = 1 : 3
         temp = rot90(net.param1{i}{j},2);
-        %temp = net.param1{i}{j};
-        z = z + convn(x(:,:,i,:),temp,'valid');
+        channel = squeeze(x(:,:,i,:));
+        means = mean(mean(C,1));
+        for k = 1:size(channels(3))
+            channel(:,:,k) = channel(:,:,k) - means(k);
+        end
+        z = z + convn(channel,temp,'valid');
     end
     net.layers{1}.a{j} = sigm(z + net.b1{j});
-    net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
+    net.layers{1}.a{j} = net.layers{1}.a{j};
 end
 
 net.fv = [];
