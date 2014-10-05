@@ -29,7 +29,7 @@ for j = 1:32
         temp = rot90(net.param1{i}{j},2);
         channel = squeeze(x(:,:,3-i+1,:));
         means = mean(mean(mean(channel,1)));
-        channel = channel(:,:,k) - means;
+        channel = - means;
         z = z + convn(channel,temp,'valid');
     end
     net.layers{1}.a{j} = sigm(z + net.b1{j});
