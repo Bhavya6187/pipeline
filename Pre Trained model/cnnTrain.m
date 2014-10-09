@@ -22,7 +22,7 @@ Nb = csvread('conv2_biases.csv');
 
 for j = 1 : 32 %  output map
     for i = 1 : 32 %  input map
-        net.param2{i}{j} = reshape(N(25*(i-1)+1:25*i,j),5,[])';
+        net.param2{i}{j} = reshape(N(25*(i-1)+1:25*i,j),5,[]);
     end
     net.b2{j} = Nb(j);
 end
