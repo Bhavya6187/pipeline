@@ -4,8 +4,8 @@ load '../data/input.mat';
 
 train_y = train_y';
 test_y = test_y';
-train_x = train_x;
-test_x = test_x;
+%train_x = train_x;
+%test_x = test_x;
 train_x = bsxfun(@minus, train_x, mean(train_x,4)) ;
 M = csvread('conv1.csv');
 Mb = csvread('conv1_biases.csv');
