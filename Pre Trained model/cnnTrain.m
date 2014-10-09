@@ -11,9 +11,9 @@ M = csvread('conv1.csv');
 Mb = csvread('conv1_biases.csv');
 
 for j = 1 : 32 %  output map
-    net.param1{1}{j} = reshape(M(1:25,j),5,[])';
-    net.param1{2}{j} = reshape(M(26:50,j),5,[])';
-    net.param1{3}{j} = reshape(M(51:75,j),5,[])';
+    net.param1{1}{j} = reshape(M(1:25,j),5,[]);
+    net.param1{2}{j} = reshape(M(26:50,j),5,[]);
+    net.param1{3}{j} = reshape(M(51:75,j),5,[]);
     net.b1{j} = Mb(j);
 end
 
