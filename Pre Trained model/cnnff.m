@@ -30,7 +30,7 @@ for j = 1:32
         channel = squeeze(x(:,:,3-i+1,:));
         means = mean(mean(mean(channel,1)));
         channel = channel - means;
-        channel = channel/255;
+        channel = channel/128;
         z = z + convn(channel,temp,'valid');
     end
     net.layers{1}.a{j} = sigm(z + net.b1{j});
