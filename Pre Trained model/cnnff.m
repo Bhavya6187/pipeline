@@ -26,7 +26,8 @@ end
 for j = 1:32
     z = zeros(28,28,size(x,4));
     for i = 1 : 3
-        temp = rot90(net.param1{i}{j},2);
+        %temp = rot90(net.param1{i}{j},2);
+        temp = net.param1{i}{j};
         channel = squeeze(x(:,:,i,:));
         %means = mean(mean(mean(channel,1)));
         %channel = channel - means;
@@ -68,8 +69,8 @@ end
 for j = 1:32
     z = zeros(10,10,size(x,4));
     for i = 1 : 32
-        temp = rot90(net.param2{i}{j},2);
-        %temp = net.param2{i}{j};
+        %temp = rot90(net.param2{i}{j},2);
+        temp = net.param2{i}{j};
         z = z + convn(net.layers{2}.a{i},temp,'valid');
     end
     net.layers{3}.a{j} = sigm(z + net.b2{j});
