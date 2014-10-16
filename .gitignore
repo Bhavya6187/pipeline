@@ -1,3 +1,5 @@
 *.asv
 cifar-10-batches-mat/
 data/
+big_net/imagenet-caffe-ref.mat
+imagenet-caffe-ref.mat
