@@ -23,7 +23,6 @@ for g = 1:group
     end
 end
 
-size(ret)
 if strcmp(ntype,'relu')
     for i = 1:size(filter,4)
         ret(:,:,i) = max(ret(:,:,i),0);
