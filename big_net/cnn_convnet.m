@@ -2,8 +2,6 @@ load '../data/input.mat';
 
 train_y = train_y';
 test_y = test_y';
-%train_x = train_x;
-%test_x = test_x;
 train_x = bsxfun(@minus, train_x, mean(train_x,4)) ;
 M = csvread('conv1.csv');
 Mb = csvread('conv1_biases.csv');
@@ -28,16 +26,28 @@ end
 net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
 
+in = train_x;
+out = train_y;
+error = 0;
 
-in = test_x(:,:,:,1:100);
-out = test_y(:,1:100);
-%in = train_x;
-%out = train_y;
-size(in)
-size(out)
-net = cnnff(net, in,out);
+for i = 1:size(in,3)
+    x = in(:,:,i);
+    x = conv_layer(x,net.param1,net.b1,1,0,'sigm');
+    x = max_pooler(x,2,2);
+    x = conv_layer(x,net.param1,net.b1,1,0,'sigm');
+    x = max_pooler(x,2,2);
+    x = reshaper_row(x);
+    x = sigm(net.ffW * x + net.ffb);
+    result = tiedrank(x);
+    A = out(:,i);
+    index = find(A==max(A));
+    if(result(index) < 10)
+        error = error + 1;
+    end
+end
+error
 
-%result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
+%{
 error5 = 0;
 error3 = 0;
 error = 0;
@@ -59,3 +69,4 @@ end
 error5
 error3
 error
+%}

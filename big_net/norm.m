@@ -22,4 +22,3 @@ for out=1:outputmaps
 end
 end
 end
-

@@ -29,3 +29,7 @@ if strcmp(ntype,'relu')
         ret(:,:,i) = max(ret(:,:,i),0);
     end
 end
+
+if strcmp(ntype,'sigm')
+    ret = sigm(ret);
+end
