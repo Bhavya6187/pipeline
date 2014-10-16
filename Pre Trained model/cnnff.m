@@ -1,28 +1,5 @@
 function net = cnnff(net,x,y)
 
-
-%x = padarray(x,[2 2],'both');
-
-%{
-for j = 1:32
-    for i = 1:size(x,4)
-        for l = 1:28
-            for m = 1:28
-                for k = 1:3
-                    z = 0;
-                    for n = 1:5
-                        for o = 1:5
-                            z = z + net.param1{k}{j}(n,o)*x(l+n-1,m+o-1,k,i);
-                        end
-                    end
-                    net.layers{1}.a{j}(l,m,i) = sigm(z + net.b1{j});
-                end
-            end
-        end
-    end
-end
-%}
-
 for j = 1:32
     z = zeros(28,28,size(x,4));
     for i = 1 : 3
