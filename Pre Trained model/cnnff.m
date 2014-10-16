@@ -1,9 +1,9 @@
-function net = cnnff(net,x,y)
+function net = cnnff(net,x)
 
 for j = 1:32
     z = zeros(28,28,size(x,4));
     for i = 1 : 3
-        temp = net.param1{i}{j};
+        temp = rot90(net.param1{i}{j},2);
         channel = squeeze(x(:,:,i,:));
         z = z + convn(channel,temp,'valid');
     end
@@ -22,7 +22,7 @@ size(net.layers{2}.a{j})
 for j = 1:32
     z = zeros(10,10,size(x,4));
     for i = 1 : 32
-        temp = net.param2{i}{j};
+        temp = rot90(net.param2{i}{j},2);
         z = z + convn(net.layers{2}.a{i},temp,'valid');
     end
     net.layers{3}.a{j} = sigm(z + net.b2{j});

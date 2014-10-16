@@ -35,9 +35,8 @@ in = train_x;
 out = train_y;
 %size(in)
 %size(out)
-net = cnnff(net, in,out);
+net = cnnff(net, in);
 
-%result = double(bsxfun(@eq, net.o, max(net.o, [], 1)));
 error5 = 0;
 error3 = 0;
 error = 0;
