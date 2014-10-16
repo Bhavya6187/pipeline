@@ -38,7 +38,8 @@ end
 size(net.layers{4}.a{1})
 for j = 1 : numel(net.layers{4}.a)
     sa = size(net.layers{4}.a{j});
-    net.fv = [net.fv; reshape(net.layers{4}.a{j}, sa(1) * sa(2), sa(3))];
+    %net.fv = [net.fv; reshape(net.layers{4}.a{j}, sa(1) * sa(2), sa(3))];
+    net.fv = [net.fv; reshaper_row(net.layers{4}.a{j})];
 end
 size(net.fv)
 net.o = sigm(net.ffW * net.fv + repmat(net.ffb, 1, size(net.fv, 2)));
