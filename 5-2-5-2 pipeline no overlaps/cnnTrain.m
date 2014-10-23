@@ -1,6 +1,9 @@
 clear;
 load '../data/input.mat';
 
+addpath('../util/');
+addpath('../util/convnet_avg_pool');
+
 train_y = train_y';
 test_y = test_y';
 opts.alpha = .001;
@@ -49,7 +52,7 @@ for i = 1 : opts.numepochs
         net = cnnff(net, batch_x,batch_y);
         %net = cnnbp(net, batch_y,batch_x);
         
-        net = cnnapplygrads(net, opts);
+        %net = cnnapplygrads(net, opts);
         
         net.rL(l) = net.errors;
     end
