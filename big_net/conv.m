@@ -13,9 +13,5 @@ for i = 1:size(ret,1)
         y_start= (stride*(j-1));
         patch = in(x_start+1:x_start+size(filter,1),y_start+1:y_start+size(filter,2));
         ret(i,j) = conv2(patch,filter,'valid');
-        %        for x = 1:size(filter,1)
-        %            for y = 1:size(filter,2)
-        %                ret(i,j) = ret(i,j) + in(x+x_start,y+y_start)*filter(x,y);
-        %            end
     end
 end

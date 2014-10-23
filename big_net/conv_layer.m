@@ -14,7 +14,6 @@ for g = 1:group
             temp = conv(in(:,:,j),filter(:,:,filter_index,i),stride,pad);
             ret(:,:,i) = ret(:,:,i)+temp;
             filter_index = filter_index +1;
-            
         end
         ret(:,:,i) = ret(:,:,i) + bias(i);
         if mod(i,100) == 0
