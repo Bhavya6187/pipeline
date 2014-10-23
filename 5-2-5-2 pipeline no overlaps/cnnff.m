@@ -2,12 +2,14 @@ function net = cnnff(net,x,y)
 
 %x = padarray(x,[2 2],'both');
 
-for j = 1:16
+for j = 1:32
     z = zeros(28,28,1,size(x,4));
     for i = 1 : 3
-        z = z + convn(x(:,:,i,:),net.param1(:,:,i,j),'valid');
+        channel = squeeze(x(:,:,i,:));
+        filter = rot90(net.param1{i}{j},2);
+        z = z + convn(channel,filter,'valid');
     end
-    net.layers{1}.a{j} = sigm(z + net.b1(j));
+    net.layers{1}.a{j} = sigm(z + net.b1{j});
     net.layers{1}.a{j} = squeeze(net.layers{1}.a{j});
 end
 

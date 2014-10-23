@@ -5,18 +5,31 @@ train_y = train_y';
 test_y = test_y';
 opts.alpha = .001;
 opts.batchsize = 50;
-opts.numepochs = 100;
+opts.numepochs = 1;
 
-net.param1 = .001*(randn(5,5,3,16)-0.5);
-net.b1=zeros(16);
+train_x = bsxfun(@minus, train_x, mean(train_x,4)) ;
+M = csvread('conv1.csv');
+Mb = csvread('conv1_biases.csv');
 
-net.param2 = .001*(randn(5,5,16,16)-0.5);
-net.b2=zeros(16);
+for j = 1 : 32 %  output map
+    net.param1{1}{j} = reshape(M(1:25,j),5,[])';
+    net.param1{2}{j} = reshape(M(26:50,j),5,[])';
+    net.param1{3}{j} = reshape(M(51:75,j),5,[])';
+    net.b1{j} = Mb(j);
+end
 
-fvnum = 25*16;
-onum = 10;
-net.ffW = (rand(onum, fvnum) - 0.5) * 0.001;
-net.ffb = zeros(onum, 1);
+N = csvread('conv2.csv');
+Nb = csvread('conv2_biases.csv');
+
+for j = 1 : 32 %  output map
+    for i = 1 : 32 %  input map
+        net.param2{i}{j} = reshape(N(25*(i-1)+1:25*i,j),5,[])';
+    end
+    net.b2{j} = Nb(j);
+end
+
+net.ffW = csvread('fc10.csv')';
+net.ffb = csvread('fc10_biases.csv')';
 
 m = size(train_x, 4);
 numbatches = m / opts.batchsize;
@@ -34,7 +47,7 @@ for i = 1 : opts.numepochs
         batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         batch_y = train_y(:,    kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         net = cnnff(net, batch_x,batch_y);
-        net = cnnbp(net, batch_y,batch_x);
+        %net = cnnbp(net, batch_y,batch_x);
         
         net = cnnapplygrads(net, opts);
         
