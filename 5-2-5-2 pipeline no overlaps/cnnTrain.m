@@ -1,16 +1,19 @@
 clear;
-load '../data/input.mat';
+load '../data/small_input.mat';
 
 addpath('../util/');
 addpath('../util/convnet_avg_pool');
 
-train_y = train_y';
-test_y = test_y';
+train_x = train_x_small;
+train_y = train_y_small;
+%train_y = train_y';
+%test_y = test_y';
 opts.alpha = .001;
-opts.batchsize = 50;
+opts.batchsize = 100;
 opts.numepochs = 1;
 
-train_x = bsxfun(@minus, train_x, mean(train_x,4)) ;
+%train_x = bsxfun(@minus, train_x, mean(train_x,4)) ;
+train_x = bsxfun(@minus, train_x, mean_mat) ;
 M = csvread('conv1.csv');
 Mb = csvread('conv1_biases.csv');
 
@@ -34,8 +37,6 @@ end
 net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
 
-train_x = train_x(:,:,:,1:100);
-train_y = train_y(:,1:100);
 m = size(train_x, 4);
 numbatches = m / opts.batchsize;
 net.rL = zeros(1,numbatches );
@@ -52,8 +53,8 @@ for i = 1 : opts.numepochs
         batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         batch_y = train_y(:,    kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         net = cnnff(net, batch_x,batch_y);
-        %net = cnnbp(net, batch_y,batch_x);
         
+        %net = cnnbp(net, batch_y,batch_x);        
         %net = cnnapplygrads(net, opts);
         
         net.rL(l) = net.errors;
