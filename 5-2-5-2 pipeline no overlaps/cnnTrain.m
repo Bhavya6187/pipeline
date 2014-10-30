@@ -1,5 +1,5 @@
 clear;
-load '../data/input.mat';
+%load '../data/input.mat';
 
 addpath('../util/');
 addpath('../util/convnet_avg_pool');
@@ -34,6 +34,8 @@ end
 net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
 
+train_x = train_x(:,:,:,1:100);
+train_y = train_y(:,1:100);
 m = size(train_x, 4);
 numbatches = m / opts.batchsize;
 net.rL = zeros(1,numbatches );
