@@ -36,7 +36,8 @@ end
 
 net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
-
+size(net.ffW)
+size(net.ffb)
 m = size(train_x, 4);
 numbatches = m / opts.batchsize;
 net.rL = zeros(1,numbatches );
@@ -48,7 +49,8 @@ for i = 1 : opts.numepochs
     disp(['epoch ' num2str(i) '/' num2str(opts.numepochs)]);
     tic;
     net.rL = zeros(1,numbatches );
-    kk = randperm(m);
+    %kk = randperm(m);
+    kk = 1:m;
     for l = 1 : numbatches
         batch_x = train_x(:, :,:, kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
         batch_y = train_y(:,    kk((l - 1) * opts.batchsize + 1 : l * opts.batchsize));
