@@ -1,5 +1,5 @@
 clear;
-%load '../data/input.mat';
+load '../data/input.mat';
 
 addpath('../util/');
 addpath('../util/convnet_avg_pool');
