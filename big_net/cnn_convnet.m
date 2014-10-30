@@ -1,5 +1,8 @@
 load '../data/input.mat';
 
+addpath('../util/');
+addpath('../util/convnet_avg_pool');
+
 train_y = train_y';
 test_y = test_y';
 train_x = bsxfun(@minus, train_x, mean(train_x,4)) ;
@@ -38,7 +41,7 @@ for i = 1:size(in,4)
     x = in(:,:,:,i);
     x = conv_layer(x,net.param1,net.b1,1,0,'sigm');
     x = max_pooler(x,2,2);
-    x = conv_layer(x,net.param1,net.b1,1,0,'sigm');
+    x = conv_layer(x,net.param2,net.b2,1,0,'sigm');
     x = max_pooler(x,2,2);
     x = reshaper_row(x);
     x = sigm(net.ffW * x + net.ffb);
