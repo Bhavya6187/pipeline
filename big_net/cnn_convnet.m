@@ -44,6 +44,8 @@ for i = 1:size(in,4)
     x = conv_layer(x,net.param2,net.b2,1,0,'sigm');
     x = max_pooler(x,2,2);
     x = reshaper_row(x);
+    size(net.ffW )
+    size(x)
     x = sigm(net.ffW * x + net.ffb);
     result = tiedrank(x);
     A = out(:,i);
