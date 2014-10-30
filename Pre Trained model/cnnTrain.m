@@ -29,10 +29,10 @@ net.ffW = csvread('fc10.csv')';
 net.ffb = csvread('fc10_biases.csv')';
 
 
-in = test_x(:,:,:,1:10);
-out = test_y(:,1:10);
-%in = train_x;
-%out = train_y;
+%in = test_x(:,:,:,1:10);
+%out = test_y(:,1:10);
+in = train_x;
+out = train_y;
 %size(in)
 %size(out)
 net = cnnff(net, in);

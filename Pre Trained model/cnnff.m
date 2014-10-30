@@ -37,7 +37,7 @@ end
 
 size(net.layers{4}.a{1})
 for j = 1 : numel(net.layers{4}.a)
-    sa = size(net.layers{4}.a{j})
+    sa = size(net.layers{4}.a{j});
     temp = permute(net.layers{4}.a{j},[2 1 3]);
     net.fv = [net.fv; reshape(temp, sa(1) * sa(2), sa(3))];
     %net.fv = [net.fv; reshaper_row(net.layers{4}.a{j})];
