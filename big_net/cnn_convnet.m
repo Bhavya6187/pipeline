@@ -38,16 +38,15 @@ out = train_y(:,1:10);
 error = 0;
 
 for i = 1:size(in,4)
-    i
     x = in(:,:,:,i);
     res(1).x = x;
     res(2).x = conv_layer(res(1).x,net.param1,net.b1,1,0,'sigm');
     res(3).x = max_pooler(res(2).x,2,2);
     res(4).x = conv_layer(res(3).x,net.param2,net.b2,1,0,'sigm');
     res(5).x = max_pooler(res(4).x,2,2);
-    %x = reshaper_row(x);
-    size(res(5).x)
-    x = reshape((res(5).x)',size(res(5).x,1)*size(res(5).x,2),1);
+    x = reshaper_row(res(5).x);
+    size(x)
+    %x = reshape((res(5).x)',size(res(5).x,1)*size(res(5).x,2),1);
     res(6).x = sigm(net.ffW * x + net.ffb);
     
     result = tiedrank(res(6).x);
